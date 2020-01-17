@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title> Question Lobby </title>
+  </head>
+  <body>
+    <link rel="stylesheet" href="css/common_themes.css">
+    <div class="container">
+      <div class="title">    
+        <h1>- Let's Add Questions to your Quiz -</h1>
+      </div>
+      
+      <a href="#" class="btn" id="button">Add a Question</a>
+      <a href="#" class="btn" id="startBtn">Start the Quiz</a>
+
+      <section class="question-list">
+        <div class="container">
+          <ul id="questions">
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div class="bg-modal">
+  <div class="modal-contents">
+
+      <div class="close">+</div>
+      <form id="questionAddForm">
+        <select id="questionType">
+          <option value="multipleChoice">Multiple Choice</option>
+          <option value="numeric">Numeric</option>
+          <option value="trueOrFalse">True or False</option>
+        </select>
+        <input type="text" id="question" placeholder="Question">
+        <input type="submit" placeholder="Submit">
+        <p id="test">Test</p>
+      </form>
+
+    </div>
+  </div>
+  <script src = "js/list_generator.js"></script>
+  <script src="js/pop_up_actions.js"></script>
+  </body>
+</html>
