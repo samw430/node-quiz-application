@@ -69,6 +69,22 @@ body {
   background: powderblue;
 }
 
+.answer-choices button {
+  padding: 25px;
+  background: #fafafa;
+  margin-top: 20px;
+  border-radius: 4px;
+}
+
+.answer-choices button:hover {
+  color: black;
+  background: powderblue;
+}
+
+.answer-choices .row .clicked {
+  background: red;
+}
+
 .title h1{
   margin: 0px 0 20px;
 }

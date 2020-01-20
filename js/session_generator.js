@@ -8,6 +8,7 @@ xhttp.onreadystatechange = function() {
 		for (var i = 0; i < quiz_files.length; i++) {
 			var item = document.createElement("li");
 			var inner = document.createElement("a");
+			inner.setAttribute("href", "create_session.html?session=" + quiz_files[i]);
 			item.appendChild(inner);
 			inner.innerText = quiz_files[i];
 			sessionList.appendChild(item);
