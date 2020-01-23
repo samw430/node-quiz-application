@@ -14,7 +14,7 @@ start_button.addEventListener("click", function(){
 	var string = "";
 	var i = 0;
 	document.querySelectorAll(".quiz-question").forEach( function(element){
-		questionsJSON[i] = element.children[0].innerHTML;
+		questionsJSON[i] = JSON.parse(element.getAttribute("data-meta"));
 		i++;
 	});
 	var finalJSON = {};
@@ -49,7 +49,7 @@ if (querystring != "null") {
 				item.classList.add("quiz-question");
 				var header = document.createElement("p");
 				item.appendChild(header);
-				header.innerText = question;
+				header.innerText = question["Text"];
 
 				var close_button = document.createElement("div");
 				close_button.classList.add("close");
@@ -79,6 +79,22 @@ document.querySelector('.close').addEventListener("click", function() {
 //Logic to add question to list from pop up
 document.getElementById('questionAddForm').addEventListener("submit", function() {
 	var item = document.createElement("li");
+
+	var metadata = {};
+	metadata["Text"] = document.getElementById("question").value;
+	var dropDown = document.getElementById("questionType");
+	var dropDownValue = dropDown.options[dropDown.selectedIndex].innerText;
+	metadata["Type"] = dropDownValue;
+	if( dropDownValue == "Multiple Choice"){
+		answerChoices = [];
+		for (var i = 1; i < 5; i++){
+			var answerOption = document.getElementById("mc-answer-" + i).value;
+			answerChoices.push(answerOption);
+		}
+		metadata["Choices"] = answerChoices;
+	}
+
+	item.setAttribute("data-meta", JSON.stringify(metadata));
 	item.classList.add("quiz-question");
 	var header = document.createElement("p");
 	var close_button = document.createElement("div");
@@ -96,12 +112,20 @@ document.getElementById('questionAddForm').addEventListener("submit", function()
 	header.innerText = document.getElementById("question").value;
 	var questionsList = document.getElementById("questions");
 	questionsList.appendChild(item);
+
+	//Make pop up box invisible
+	document.querySelector('.bg-modal').style.display = "none";
 });
 
-//TODO Expand logic for different question types
+//Make multiple choice options appear and disappear depending on question type
 document.getElementById("questionType").addEventListener("change", function() {
 	var dropDown = document.getElementById("questionType");
-	var test = document.getElementById("test").innerText = dropDown.options[dropDown.selectedIndex].value;
+	var dropDownValue = dropDown.options[dropDown.selectedIndex].innerText;
+	if(dropDownValue == "Multiple Choice"){
+		document.querySelector(".multiple-choice-inputs").style.display = "block";
+	}else{
+		document.querySelector(".multiple-choice-inputs").style.display = "none";
+	}
 });
 
 

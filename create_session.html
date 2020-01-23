@@ -29,13 +29,18 @@
       <div class="close">+</div>
       <form id="questionAddForm">
         <select id="questionType">
-          <option value="multipleChoice">Multiple Choice</option>
           <option value="numeric">Numeric</option>
           <option value="trueOrFalse">True or False</option>
+          <option value="multipleChoice">Multiple Choice</option>
         </select>
         <input type="text" id="question" placeholder="Question">
+        <div class="multiple-choice-inputs">
+          <input type="text" placeholder="Answer Option 1" id="mc-answer-1">
+          <input type="text" placeholder="Answer Option 2" id="mc-answer-2">
+          <input type="text" placeholder="Answer Option 3" id="mc-answer-3">
+          <input type="text" placeholder="Answer Option 4" id="mc-answer-4">
+        </div>
         <input type="submit" placeholder="Submit">
-        <p id="test">Test</p>
       </form>
 
     </div>

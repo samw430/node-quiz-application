@@ -43,6 +43,10 @@ a {
           transition: all ease .3s;
 }
 
+.session-list a{
+  background: none;
+}
+
 .btn {
   font-size: 1.2em;
   border-radius: 5px;
@@ -81,8 +85,13 @@ body {
   background: powderblue;
 }
 
-.answer-choices .row .clicked {
+.answer-choices .clicked {
   background: red;
+}
+
+.answer-choices .row{
+  display: none;
+  justify-content: center;
 }
 
 .title h1{
@@ -176,8 +185,12 @@ ul li:hover {
   align-items: center;
 }
 
+.multiple-choice-inputs{
+  display: none;
+}
+
 .modal-contents {
-  height: 300px;
+  height: 350px;
   width: 500px;
   background-color: white;
   text-align: center;

@@ -81,13 +81,20 @@ app.post('/submit_answer', function(req, res){
 	var user_nickname = req.body["User"];
 	var answer = req.body["Answer"];
 
+	console.log(req.body);
 	try {
 		var file_path = "./quizzes/" + session_nickname;
 		console.log("Recieved answer for " + file_path);
 		quiz_contents = fs.readFileSync(file_path);
 		quiz_contents = JSON.parse(quiz_contents);
 
-		quiz_contents["Answers"][user_nickname] = answer;
+		var current_question = quiz_contents["Current Question"];
+		if(current_question in quiz_contents["Answers"]){
+			quiz_contents["Answers"][current_question][user_nickname] = answer;
+		}else{
+			quiz_contents["Answers"][current_question] = {};
+			quiz_contents["Answers"][current_question][user_nickname] = answer;
+		}
 
 		var stream = fs.createWriteStream(file_path);
 		stream.once("open", function(fd) {
@@ -96,6 +103,7 @@ app.post('/submit_answer', function(req, res){
 		});
 		res.sendStatus(200);
 	} catch (err) {
+		console.log(err);
 		console.log("Invalid quiz requested");
 		res.sendStatus(404);
 	}
@@ -124,6 +132,24 @@ app.post('/set_current_question', function(req, res){
 		console.log("Invalid quiz requested");
 		res.sendStatus(404);
 	}
+});
+
+//End point for deleting previous sessions
+app.post('/delete_session', function(req, res){
+	var url_query = url.parse(req.url, true);
+	var session = url_query.query["session"];
+
+	var file_path = "./quizzes/" + session;
+	console.log("Deleting session " + file_path);
+	fs.unlink(file_path, function(err){
+		if(err){
+			console.log("Delete failed ", err);
+			res.sendStatus(400);
+		}else{
+			console.log("Deletion Succesful");
+			res.sendStatus(200);
+		}
+	});
 });
 
 //Starts node server on port 8080

@@ -18,7 +18,7 @@ if (sessionNickname != "null") {
 				item.classList.add("index=" + i);
 				var header = document.createElement("p");
 				item.appendChild(header);
-				header.innerText = question;
+				header.innerText = question["Text"];
 
 				item.addEventListener("click", function(){
 					var index = "";
