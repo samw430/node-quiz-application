@@ -4,16 +4,17 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var path = require('path');
 
 //Makes index.html default page
 app.get('/', function(req, res) {
-	res.sendFile(__dirname + "/index.html");
+	res.sendFile(__dirname + "/public/index.html");
 });
 
 //Allows host to access past session names when recalling a session
 app.get('/session_names', function(req, res) {
 	res.setHeader('Content-Type', 'application/json');
-	var files = fs.readdirSync(__dirname + '/quizzes/');
+	var files = fs.readdirSync(__dirname + '/public/quizzes/');
 	console.log("Recalled past sessions");
 	res.end(JSON.stringify({ "sessions": files }));
 });
@@ -25,7 +26,7 @@ app.get('/session_questions', function(req, res){
 
 	var url_query = url.parse(req.url, true).query["session"];	
 	try{
-		var file_path = "./quizzes/" + url_query;
+		var file_path = "./public/quizzes/" + url_query;
 		console.log(file_path);
 		var quiz_contents = fs.readFileSync(file_path);
 		quiz_contents = JSON.parse(quiz_contents);
@@ -45,7 +46,7 @@ app.get('/current_question', function (req, res){
 
 	var url_query = url.parse(req.url, true).query["session"];
 	try {
-		var file_path = "./quizzes/" + url_query;
+		var file_path = "./public/quizzes/" + url_query;
 		console.log(file_path);
 		var quiz_contents = fs.readFileSync(file_path);
 		quiz_contents = JSON.parse(quiz_contents);
@@ -61,13 +62,13 @@ app.get('/current_question', function (req, res){
 //Allow for html files to be accessed through IPAddress/desired-filename
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, 'public')));
 
 //End point for host to post session when it is complete
 app.post('/session_save', function(req, res) {
 	var url_query = url.parse(req.url, true).query["session"];
 
-	var stream = fs.createWriteStream("./quizzes/" + url_query);
+	var stream = fs.createWriteStream("./public/quizzes/" + url_query);
 	stream.once("open", function(fd){
 		stream.write(JSON.stringify(req.body));
 		stream.end();
@@ -83,7 +84,7 @@ app.post('/submit_answer', function(req, res){
 
 	console.log(req.body);
 	try {
-		var file_path = "./quizzes/" + session_nickname;
+		var file_path = "./public/quizzes/" + session_nickname;
 		console.log("Recieved answer for " + file_path);
 		quiz_contents = fs.readFileSync(file_path);
 		quiz_contents = JSON.parse(quiz_contents);
@@ -116,7 +117,7 @@ app.post('/set_current_question', function(req, res){
 	var current_question = url_query.query["question"];
 
 	try {
-		var file_path = "./quizzes/" + session_nickname;
+		var file_path = "./public/quizzes/" + session_nickname;
 		console.log("Set current question for " + file_path);
 		quiz_contents = fs.readFileSync(file_path);
 		quiz_contents = JSON.parse(quiz_contents);
@@ -139,7 +140,7 @@ app.post('/delete_session', function(req, res){
 	var url_query = url.parse(req.url, true);
 	var session = url_query.query["session"];
 
-	var file_path = "./quizzes/" + session;
+	var file_path = "./public/quizzes/" + session;
 	console.log("Deleting session " + file_path);
 	fs.unlink(file_path, function(err){
 		if(err){
