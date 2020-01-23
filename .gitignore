@@ -1,0 +1,2 @@
+# Ignore node packages that should be redownloaded on another computer
+node_modules/
