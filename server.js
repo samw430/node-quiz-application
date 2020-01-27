@@ -5,6 +5,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var path = require('path');
+var ip = require("ip");
 
 //Makes index.html default page
 app.get('/', function(req, res) {
@@ -154,8 +155,8 @@ app.post('/delete_session', function(req, res){
 });
 
 //Starts node server on port 8080
-app.listen(8080, function(){
-	console.log("Started on PORT 8080");
+app.listen(8080, '0.0.0.0', function(){
+	console.log("Access sites using", ip.address(), "on port 8080");
 });
 
 

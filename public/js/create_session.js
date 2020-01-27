@@ -21,6 +21,7 @@ start_button.addEventListener("click", function(){
 	finalJSON["Questions"] = questionsJSON;
 	finalJSON["Current Question"] = "null";
 	finalJSON["Answers"] = {};
+	console.log(JSON.stringify(finalJSON));
 	xhr.send(JSON.stringify(finalJSON));
 });
 
@@ -32,7 +33,6 @@ document.getElementById("startBtn").addEventListener("click", function(){
 
 //Logic to populate list depending on query parameters
 var querystring = window.location.search.split("=")[1];
-console.log(querystring);
 if (querystring != "null") {
 
 	document.getElementById("session-nickname").value = querystring;
@@ -42,11 +42,14 @@ if (querystring != "null") {
 		if (this.readyState == 4 && this.status == 200) {
 			var stored_questions = JSON.parse(this.responseText)["questions"];
 			var questionsList = document.getElementById("questions");
+			console.log(stored_questions);
 			var keys = Object.keys(stored_questions);
 			for (var i = 0; i < keys.length; i++) {
 				var question = stored_questions[i];
+				console.log(question);
 				var item = document.createElement("li");
 				item.classList.add("quiz-question");
+				item.setAttribute("data-meta", JSON.stringify(question));
 				var header = document.createElement("p");
 				item.appendChild(header);
 				header.innerText = question["Text"];

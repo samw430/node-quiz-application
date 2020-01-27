@@ -1,6 +1,6 @@
 //Logic to populate list depending on query parameters
 var sessionNickname = window.location.search.split("=")[1];
-console.log(sessionNickname);
+
 if (sessionNickname != "null") {
 
 	document.getElementById("session-nickname").innerText = sessionNickname + " is Live";
@@ -10,6 +10,7 @@ if (sessionNickname != "null") {
 		if (this.readyState == 4 && this.status == 200) {
 			var stored_questions = JSON.parse(this.responseText)["questions"];
 			var questionsList = document.getElementById("questions");
+			console.log(stored_questions);
 			var keys = Object.keys(stored_questions);
 			for (var i = 0; i < keys.length; i++) {
 				var question = stored_questions[i];

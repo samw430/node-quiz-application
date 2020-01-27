@@ -53,7 +53,8 @@ for (var i = 1; i < 5;i++){
 document.getElementById("submitBtn").addEventListener("click", function(){
 	// construct an HTTP request
 	var xhr = new XMLHttpRequest();
-	xhr.open("POST", "submit_answer", true);
+	var url = "http://" + window.location.host + "/submit_answer";
+	xhr.open("POST", url, true);
 	xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
 
 	// send the collected data as JSON
