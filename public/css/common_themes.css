@@ -220,3 +220,13 @@ input {
     color: #666;
   }
 }
+
+.quiz-question {
+  display: flex;
+  justify-content: space-between;
+}
+
+.quiz-question .answer-btn{
+  color: black;
+  justify-content: flex-end;
+}

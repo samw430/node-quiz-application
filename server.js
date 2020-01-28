@@ -40,6 +40,34 @@ app.get('/session_questions', function(req, res){
 
 });
 
+//End point for user to get the answers for a question that was live
+app.get('/question_answers', function(req, res) {
+	var session_name = req.query.session;
+	var question_number = req.query.question;
+	console.log("Requested answers to " + question_number + " from " + session_name);
+
+	try {
+		var file_path = "./public/quizzes/" + session_name;
+		var quiz_contents = fs.readFileSync(file_path);
+		quiz_contents = JSON.parse(quiz_contents);
+		res.setHeader('Content-Type', 'application/json');
+
+		var relevant_answers = quiz_contents["Answers"][question_number];
+		var response;
+		if( relevant_answers == undefined){
+			response = {};
+		}else{
+			response = relevant_answers;
+		}
+
+		res.end(JSON.stringify({ "answers": response }));
+	} catch (err) {
+		console.log("Invalid quiz requested");
+		res.sendStatus(404);
+	}
+
+});
+
 //End point for user to get the current question for their session
 app.get('/current_question', function (req, res){
 	var session_name = req.query.session;
