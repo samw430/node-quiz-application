@@ -230,3 +230,7 @@ input {
   color: black;
   justify-content: flex-end;
 }
+
+.graph-svg{
+  background-color: white;
+}
