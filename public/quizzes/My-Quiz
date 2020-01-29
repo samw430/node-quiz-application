@@ -1,1 +1,1 @@
-{"Questions":{"0":{"Text":"How big is the Sun","Type":"Numeric"},"1":{"Text":"The Earth is flat","Type":"True or False"},"2":{"Text":"Who wrote this Quiz","Type":"Multiple Choice","Choices":["Sam","No one","God","The Sun"]}},"Current Question":"0","Answers":{"0":{"Sam":"69","Bob":"50000","Boy":"69"}}}
+{"Questions":{"0":{"Text":"How big is the Sun","Type":"Numeric"},"1":{"Text":"The Earth is flat","Type":"True or False"},"2":{"Text":"Who wrote this Quiz","Type":"Multiple Choice","Choices":["Sam","No one","God","The Sun"]}},"Current Question":"2","Answers":{}}

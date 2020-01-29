@@ -37,16 +37,22 @@ var false_button = document.getElementById("falseBtn");
 
 true_button.addEventListener("click", function(){
 	true_button.classList.toggle("clicked");
+	false_button.classList.remove("clicked");
 });
 
 false_button.addEventListener("click", function() {
 	false_button.classList.toggle("clicked");
+	true_button.classList.remove("clicked");
 });
 
 for (var i = 1; i < 5;i++){
 	var choice_button = document.getElementById("option" + i);
 	choice_button.parentElement.addEventListener("click", function(){
-		this.classList.toggle("clicked");
+		var buttons = document.getElementsByClassName('btn');
+		for (var i = buttons.length - 1; i >= 0; i--) {
+			buttons[i].classList.remove("clicked");
+		}
+		this.classList.add("clicked");
 	});
 }
 
