@@ -51,6 +51,7 @@ if (querystring != "null") {
 				item.classList.add("quiz-question");
 				item.setAttribute("data-meta", JSON.stringify(question));
 				var header = document.createElement("p");
+				header.classList.add("title");
 				item.appendChild(header);
 				header.innerText = question["Text"];
 
@@ -88,9 +89,9 @@ document.getElementById('questionAddForm').addEventListener("submit", function()
 	var dropDown = document.getElementById("questionType");
 	var dropDownValue = dropDown.options[dropDown.selectedIndex].innerText;
 	metadata["Type"] = dropDownValue;
-	if( dropDownValue == "Multiple Choice"){
+	if (dropDownValue == "Multiple Choice") {
 		answerChoices = [];
-		for (var i = 1; i < 5; i++){
+		for (var i = 1; i < 5; i++) {
 			var answerOption = document.getElementById("mc-answer-" + i).value;
 			answerChoices.push(answerOption);
 		}
